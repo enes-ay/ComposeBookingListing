@@ -21,7 +21,6 @@ import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.ArrowBack
 import androidx.compose.material.icons.filled.FavoriteBorder
-import androidx.compose.material.icons.filled.LocationOn
 import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.material3.HorizontalDivider
 import androidx.compose.material3.Icon
@@ -29,7 +28,6 @@ import androidx.compose.material3.IconButton
 import androidx.compose.material3.Scaffold
 import androidx.compose.material3.Surface
 import androidx.compose.material3.Text
-import androidx.compose.material3.TextButton
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.mutableStateListOf
@@ -44,11 +42,13 @@ import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.imageResource
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.text.font.FontWeight
+import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import com.example.odev6.model.Place
 import com.example.odev6.ui.theme.main_color
 import com.example.odev6.ui.theme.selective_color
+import com.example.odev6.ui.theme.warning_color
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
@@ -56,12 +56,13 @@ fun Home(modifier: Modifier = Modifier) {
     val hostel_list = remember { mutableStateListOf<Place>() }
 
     LaunchedEffect(key1 = true) {
-        val place1 = Place("Hostel Roma", 2130, 5.7f, "A peaceful place", "A peaceful place", false,4,2,"hostel_roma", 700)
-        val place2 = Place("Joyful Guest House", 1130, 8.6f, "A peaceful place", "A wonderful place", false,2,1, "joyful",  569)
-        val place3 = Place("Toffa Place In Rome", 2120, 6.8f, "Çift Kişilik veya İki Yataklı Oda - Özel Banyolu", "A peaceful place", false,2,1,"toffa",234)
-        val place4 = Place("Imperial Suite Guest House", 2340, 8.5f, "Çift Kişilik veya İki Yataklı Oda", "WaA A peaceful  placerning", false,2,1,"imperial",345)
-        val place5 = Place("Sonder Montevecchio", 2220, 8.5f, "A peaceful place", "Warning", false,3,2,"sonder",345)
-        val place6 = Place("Binario Zero", 220, 8.1f, "A peaceful place", "Warning", false,3,2,"binario", 324)
+        val place1 = Place(name = "Hostel Roma", price = 35, rate = 5.7f,  time_person_info = "Çift Kişilik veya İki Yataklı Oda - Özel Banyolu", isFav = false, bath_count = 2, picture = "hostel_roma", bedroom_count = 2, totalReview =  776)
+        val place2 = Place(name = "Joyful Guest House", price = 65, rate = 8.6f,warning = "Bu fiyata Booking.com'da sadece 1 tane kaldı", time_person_info = "Çift Kişilik veya İki Yataklı Oda - Özel Banyolu", isFav = false, bath_count = 2, picture = "joyful", bedroom_count = 2, totalReview =  286)
+        val place3 = Place(name = "Toffa Place in Rome", price = 35, rate = 5.7f, time_person_info = "A peaceful place", isFav = false, bath_count = 2, picture = "toffa", bedroom_count = 2, totalReview =  234)
+        val place4 = Place(name = "Sonder Montevecchio", price = 35, rate = 5.7f, time_person_info = "A peaceful place", isFav = false, bath_count = 2, picture = "sonder", bedroom_count = 2, totalReview =  560)
+        val place5 = Place(name = "Binario Zero", price = 35, rate = 5.7f, time_person_info = "A peaceful place", isFav = false, bath_count = 2, picture = "binario", bedroom_count = 2, totalReview =  776)
+        val place6 = Place(name = "Imperial Suite Guest House", price = 35, rate = 5.7f, time_person_info = "A peaceful place", isFav = false, bath_count = 2, picture = "imperial", bedroom_count = 2, totalReview =  776)
+
         hostel_list.add(place1)
         hostel_list.add(place2)
         hostel_list.add(place3)
@@ -82,103 +83,8 @@ fun Home(modifier: Modifier = Modifier) {
                 LazyColumn {
                     items(hostel_list.count()) {
                         val place = hostel_list[it]
+                        RowItem(place = place)
 
-                        Row(
-                            modifier = Modifier
-                                .fillMaxWidth()
-                                .clickable { }
-                                .padding(horizontal = 13.dp, vertical = 8.dp),
-                            horizontalArrangement = Arrangement.SpaceBetween,
-                            verticalAlignment = Alignment.CenterVertically
-                        ) {
-                            Column(
-                                modifier = Modifier
-                                    .fillMaxSize()
-                                    .weight(1f),
-                                verticalArrangement = Arrangement.Center
-                            ) {
-
-                                val activity = (LocalContext.current as Activity)
-
-                                Image( bitmap = ImageBitmap.imageResource(
-                                    id = activity.resources.getIdentifier(place.picture,"drawable",activity.packageName)),
-                                    contentDescription =" ",
-                                    modifier = Modifier
-                                        .size(120.dp, 180.dp)
-                                        .clip(RoundedCornerShape(8.dp)) // Görselin köşelerini yuvarlamak için
-                                        .background(Color.LightGray), // Arka plan rengi
-                                        contentScale = ContentScale.Crop
-                                )
-                            }
-                            Column(
-                                modifier = Modifier
-                                    .fillMaxSize()
-                                    .weight(2f),
-                                verticalArrangement = Arrangement.Center,
-                                horizontalAlignment = Alignment.End
-                            ) {
-                                Row(
-                                    modifier = Modifier.fillMaxSize(),
-                                    horizontalArrangement = Arrangement.SpaceBetween
-                                ) {
-                                    Text(
-                                        modifier = Modifier.align(Alignment.CenterVertically),
-                                        text = place.name,
-                                        fontWeight = FontWeight.Bold,
-                                        fontSize = 18.sp,
-                                    )
-                                    IconButton(onClick = { }) {
-                                        Icon(Icons.Default.FavoriteBorder, contentDescription = " ")
-                                    }
-                                }
-
-                                Row(modifier = Modifier.fillMaxWidth()) {
-                                    Text(
-                                        text = place.rate.toString(),
-                                        color = Color.White,
-                                        fontWeight = FontWeight.Bold,
-                                        modifier = Modifier
-                                            .background(
-                                                main_color,
-                                                shape = RoundedCornerShape(
-                                                    bottomEnd = 6.dp,
-                                                    topEnd = 6.dp,
-                                                    topStart = 6.dp
-                                                )
-                                            )
-                                            .padding(4.dp)
-                                    )
-                                    Text(
-                                        text =
-                                        if (place.totalReview>300){
-                                         "Yeterli ${place.totalReview} değerlendirme"
-
-                                        }
-                                        else{
-                                        "Yetersiz 300 veya daha az değerlendirme"
-
-                                        },
-                                        modifier = Modifier
-                                            .padding(start = 10.dp)
-                                            .align(Alignment.CenterVertically)
-                                    )
-                                }
-
-                                Text(text = place.warning, modifier = Modifier.align(Alignment.Start))
-                                Text(text = "Fiyat şunun için 1 gece 2 yetişkin",
-                                    fontWeight = FontWeight.Bold,
-                                    modifier= Modifier.align(Alignment.End)
-                                    )
-                                Text(text = "${place.bedroom_count} yatak")
-                                Text(text = "${place.bath_count} banyo")
-                                Text(
-                                    text = "${place.price} ₺",
-                                    fontWeight = FontWeight.Bold,
-                                    fontSize = 19.sp
-                                )
-
-                            }
-                        }
                         HorizontalDivider(
                             color = Color.Gray.copy(alpha = 0.3f),
                             thickness = 1.dp,
@@ -259,6 +165,120 @@ fun CustomTopBar() {
 }
 
 @Composable
+fun RowItem(place : Place){
+    Row(
+        modifier = Modifier
+            .fillMaxWidth()
+            .clickable { }
+            .padding(horizontal = 13.dp, vertical = 8.dp),
+        horizontalArrangement = Arrangement.SpaceBetween,
+        verticalAlignment = Alignment.CenterVertically
+    ) {
+        Column(
+            modifier = Modifier
+                .fillMaxSize()
+                .weight(1f),
+            verticalArrangement = Arrangement.Center
+        ) {
+
+            val activity = (LocalContext.current as Activity)
+
+            Image( bitmap = ImageBitmap.imageResource(
+                id = activity.resources.getIdentifier(place.picture,"drawable",activity.packageName)),
+                contentDescription =" ",
+                modifier = Modifier
+                    .size(120.dp, 180.dp)
+                    .clip(RoundedCornerShape(8.dp))
+                    .background(Color.LightGray),
+                contentScale = ContentScale.Crop
+            )
+        }
+        Column(
+            modifier = Modifier
+                .fillMaxSize()
+                .weight(2f),
+            verticalArrangement = Arrangement.Center,
+            horizontalAlignment = Alignment.End
+        ) {
+            Row(
+                modifier = Modifier.fillMaxWidth(),
+                horizontalArrangement = Arrangement.SpaceBetween
+            ) {
+                Text(
+                    modifier = Modifier.align(Alignment.CenterVertically),
+                    text = place.name,
+                    fontWeight = FontWeight.Bold,
+                    fontSize = 18.sp,
+                )
+                IconButton(onClick = { }) {
+                    Icon(Icons.Default.FavoriteBorder, contentDescription = "fav button")
+                }
+
+
+            }
+
+            Row(modifier = Modifier
+                .fillMaxWidth()
+                .padding(end = 5.dp),
+                verticalAlignment = Alignment.CenterVertically,
+            ) {
+                Text(
+                    text = place.rate.toString(),
+                    color = Color.White,
+                    fontWeight = FontWeight.Bold,
+                    modifier = Modifier
+                        .background(
+                            main_color,
+                            shape = RoundedCornerShape(
+                                bottomEnd = 6.dp,
+                                topEnd = 6.dp,
+                                topStart = 6.dp
+                            )
+                        )
+                        .padding(4.dp)
+
+                )
+
+                Text(
+                    text = if (place.totalReview > 350) "Yeterli"  else "İyi",
+                    modifier = Modifier
+                        .padding(start = 10.dp)
+                        .align(Alignment.CenterVertically),
+                    fontWeight = FontWeight.Bold
+                )
+                Text(text = "• ${place.totalReview} değerlendirme",
+                    modifier=Modifier.padding(start = 4.dp)
+                    , fontSize = 14.sp)
+
+
+            }
+
+
+            Row(
+                modifier = Modifier.fillMaxWidth(),
+                horizontalArrangement = Arrangement.End){
+                Text(text = "${place.bedroom_count} yatak", modifier = Modifier.padding(end = 5.dp))
+                Text(text = "${place.bath_count} banyo")
+            }
+            Text(text = "Fiyat şunun için 1 gece 2 yetişkin",
+                fontWeight = FontWeight.Bold,
+                modifier= Modifier.align(Alignment.End)
+            )
+
+            Text(
+                text = "€ ${place.price}",
+                fontWeight = FontWeight.Bold,
+                fontSize = 19.sp
+            )
+            Text(text = "+€ 10 vergi ve ücretler")
+            Text(text = place.warning, textAlign = TextAlign.End,color = warning_color, modifier = Modifier.fillMaxWidth())
+
+
+        }
+    }
+}
+
+@Composable
 fun FilterBar() {
     Box(
         modifier = Modifier
@@ -287,7 +307,7 @@ fun FilterBar() {
 
                 Row(verticalAlignment = Alignment.CenterVertically) {
                     Icon(
-                        modifier = Modifier.size(35.dp, height = 25.dp),
+                        modifier = Modifier.size(33.dp, height = 25.dp),
                         painter = painterResource(id = R.drawable.swap),
                         contentDescription = ""
                     )
@@ -306,11 +326,11 @@ fun FilterBar() {
 
                 Row(verticalAlignment = Alignment.CenterVertically) {
                     Icon(
-                        modifier = Modifier.size(30.dp, height = 20.dp),
+                        modifier = Modifier.size(30.dp, height = 18.dp),
                         painter = painterResource(id = R.drawable.filter),
                         contentDescription = ""
                     )
-                    Text(text = "Filrele")
+                    Text(text = "Filtrele")
                 }
             }
 
@@ -341,31 +361,5 @@ fun FilterBar() {
         modifier = Modifier.fillMaxWidth()
     )
 }
-
-
-//            TextButton(onClick = { /* Handle Sort click */ }) {
-//                Row(verticalAlignment = Alignment.CenterVertically) {
-//                    Icon(
-//                        imageVector = Icons.Default.LocationOn,
-//                        contentDescription = "Sort"
-//                    )
-//                    Text(text = "Sırala", color = Color.Black)
-//                }
-//            }
-//            TextButton(onClick = { /* Handle Filter click */ }) {
-//                Row(verticalAlignment = Alignment.CenterVertically) {
-//                    Icon(
-//                        imageVector = Icons.Default.AccountBox,
-//                        contentDescription = "Filter"
-//                    )
-//                    Text(text = "Filtrele", color = Color.Black)
-//                }
-//            }
-//            TextButton(onClick = { /* Handle Map click */ }) {
-//                Row(verticalAlignment = Alignment.CenterVertically) {
-//                    Icon(imageVector = Icons.Default.LocationOn, contentDescription = "Map")
-//                    Text(text = "Harita", color = Color.Black)
-//                }
-//            }
 
 

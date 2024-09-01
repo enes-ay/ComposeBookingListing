@@ -12,3 +12,4 @@ val Pink40 = Color(0xFF7D5260)
 
 val main_color = Color( 0xFF003580)
 val selective_color = Color( 0xFFFEBA02)
+val warning_color = Color(0xFFAC2210)
