@@ -56,12 +56,12 @@ fun Home(modifier: Modifier = Modifier) {
     val hostel_list = remember { mutableStateListOf<Place>() }
 
     LaunchedEffect(key1 = true) {
-        val place1 = Place(name = "Hostel Roma", price = 35, rate = 5.7f,  time_person_info = "Çift Kişilik veya İki Yataklı Oda - Özel Banyolu", isFav = false, bath_count = 2, picture = "hostel_roma", bedroom_count = 2, totalReview =  776)
+        val place1 = Place(name = "HostelRoma", price = 35, rate = 5.7f,  time_person_info = "Çift Kişilik veya İki Yataklı Oda - Özel Banyolu", isFav = false, bath_count = 2, picture = "hostel_roma", bedroom_count = 2, totalReview =  776)
         val place2 = Place(name = "Joyful Guest House", price = 65, rate = 8.6f,warning = "Bu fiyata Booking.com'da sadece 1 tane kaldı", time_person_info = "Çift Kişilik veya İki Yataklı Oda - Özel Banyolu", isFav = false, bath_count = 2, picture = "joyful", bedroom_count = 2, totalReview =  286)
-        val place3 = Place(name = "Toffa Place in Rome", price = 35, rate = 5.7f, time_person_info = "A peaceful place", isFav = false, bath_count = 2, picture = "toffa", bedroom_count = 2, totalReview =  234)
-        val place4 = Place(name = "Sonder Montevecchio", price = 35, rate = 5.7f, time_person_info = "A peaceful place", isFav = false, bath_count = 2, picture = "sonder", bedroom_count = 2, totalReview =  560)
-        val place5 = Place(name = "Binario Zero", price = 35, rate = 5.7f, time_person_info = "A peaceful place", isFav = false, bath_count = 2, picture = "binario", bedroom_count = 2, totalReview =  776)
-        val place6 = Place(name = "Imperial Suite Guest House", price = 35, rate = 5.7f, time_person_info = "A peaceful place", isFav = false, bath_count = 2, picture = "imperial", bedroom_count = 2, totalReview =  776)
+        val place3 = Place(name = "Toffa Place in Rome", price = 45, rate = 5.7f, time_person_info = "Çift Kişilik veya İki Yataklı Oda", isFav = false, bath_count = 2, picture = "toffa", bedroom_count = 2, totalReview =  234)
+        val place4 = Place(name = "Sonder Montevecchio", price = 65, rate = 5.7f, time_person_info = "Çift Kişilik veya Tek Yataklı Oda", isFav = false, bath_count = 2, picture = "sonder", bedroom_count = 2, totalReview =  560)
+        val place5 = Place(name = "Binario Zero", price = 75, rate = 5.7f, time_person_info = "Çift Kişilik veya İki Yataklı Oda - Özel Banyolu", isFav = false, bath_count = 2, picture = "binario", bedroom_count = 2, totalReview =  776)
+        val place6 = Place(name = "Imperial Suite Guest House", price = 95, rate = 5.7f, time_person_info = "Çift Kişilik veya İki Yataklı Oda - Özel Banyolu", isFav = false, bath_count = 2, picture = "imperial", bedroom_count = 2, totalReview =  776)
 
         hostel_list.add(place1)
         hostel_list.add(place2)
@@ -152,7 +152,7 @@ fun CustomTopBar() {
                 }
 
                 Text(
-                    text = "Roma Şehir Merkezi : 30 Ağu - 31 Ağu",
+                    text = "Roma Şehir Merkezi • 30 Ağu - 31 Ağu",
                     color = Color.Black,
                     fontSize = 16.sp,
                     modifier = Modifier
@@ -260,9 +260,10 @@ fun RowItem(place : Place){
                 Text(text = "${place.bedroom_count} yatak", modifier = Modifier.padding(end = 5.dp))
                 Text(text = "${place.bath_count} banyo")
             }
-            Text(text = "Fiyat şunun için 1 gece 2 yetişkin",
+            Text(text = "Fiyat şunun için: 1 gece 2 yetişkin",
                 fontWeight = FontWeight.Bold,
-                modifier= Modifier.align(Alignment.End)
+                modifier= Modifier.align(Alignment.End),
+                fontSize = 15.sp
             )
 
             Text(
